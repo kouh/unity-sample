@@ -3,13 +3,18 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-	
 	}
 	
-	// Update is called once per frame
 	void Update () {
-	
+		Move();
+	}
+
+	void Move(){
+		if(Input.GetKey("right")){
+			transform.Translate(new Vector2(+0.1f,0),Space.World);
+		}else if(Input.GetKey("left")){
+			transform.Translate(new Vector2(-0.1f,0),Space.World);
+		}
 	}
 }
