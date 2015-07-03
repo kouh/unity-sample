@@ -11,10 +11,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void Move(){
-		if(Input.GetKey("right")){
+		if(Controller.Right()){
 			transform.Translate(new Vector2(+0.1f,0),Space.World);
-		}else if(Input.GetKey("left")){
+		}else if(Controller.Left()){
 			transform.Translate(new Vector2(-0.1f,0),Space.World);
 		}
-	}
+  }
 }
