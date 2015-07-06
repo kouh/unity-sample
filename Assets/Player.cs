@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
   		//タグで判定が理想
   		if(col.gameObject.name == "Enemy"){
   			this.Destroy(this.gameObject); //そして死ぬ
+  			Application.LoadLevel(Application.loadedLevelName); //ステージ再読み込み
   		}
   	}
 }
