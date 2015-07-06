@@ -3,31 +3,35 @@ using System.Collections;
 
 public class StageLoader : MonoBehaviour {
 
-  public TextAsset textAsset;
+  private TextAsset textAsset;
 
   //配置するオブジェクト
   // public GameObject block;
-  public GameObject player;
+  private GameObject player;
 
   public Vector3 createPos;
 
-  public Vector3 spaceScale = new Vector3(1.0f,1.0f,0f);
+  private Vector3 spaceScale = new Vector3(0.5f,0.5f,0f);
   private GameObject block;
   void Start () {
+    //マップデータ取得
+    textAsset = (TextAsset)Resources.Load ("Map1");
     // プレハブを取得
     block = (GameObject)Resources.Load ("Block");
+    player = (GameObject)Resources.Load ("Player");
+    CreateStage(new Vector3(0,0,0));
     // createPos = Vector3.zero;
-    for (int y = 0; y < 5; y++) {
-      for (int x = 0; x < 5; x++) {
-        GameObject obj = Instantiate(block, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-        obj.name = block.name;
-        obj.transform.parent = this.transform;
-      }
-    }
+    // for (int y = 0; y < 5; y++) {
+    //   for (int x = 0; x < 5; x++) {
+    //     GameObject obj = Instantiate(block, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+    //     obj.name = block.name;
+    //     obj.transform.parent = this.transform;
+    //   }
+    // }
   }
 
 
-  void CreateStage(Vector3 pos){
+  private void CreateStage(Vector3 pos){
 
     GameObject stage = new GameObject("Stage");
 
@@ -47,7 +51,11 @@ public class StageLoader : MonoBehaviour {
         obj = Instantiate(player, pos, Quaternion.identity) as GameObject;
         obj.name = player.name;
         pos.x += obj.transform.lossyScale.x;
-        obj.transform.parent = stage.transform;
+        // obj.transform.parent = stage.transform;
+
+        var camera = GameObject.Find("Camera");
+        camera.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, camera.transform.position.z);
+        camera.transform.parent = obj.transform;
       }else if(c == '\n'){
         pos.y -= spaceScale.y;
         pos.x = originPos.x;
@@ -55,5 +63,6 @@ public class StageLoader : MonoBehaviour {
         pos.x += spaceScale.x;
       }
     }
+    
   }
 }
