@@ -19,7 +19,9 @@ public class StageLoader : MonoBehaviour {
     // createPos = Vector3.zero;
     for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 5; x++) {
-        Instantiate(block, new Vector3(x, y, 0), Quaternion.identity);
+        GameObject obj = Instantiate(block, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+        obj.name = block.name;
+        obj.transform.parent = this.transform;
       }
     }
   }
