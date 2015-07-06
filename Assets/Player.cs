@@ -40,4 +40,11 @@ public class Player : MonoBehaviour {
   			jump = true;
   		}
   	}
+
+  	void OnCollisionEnter2D (Collision2D col){
+  		//タグで判定が理想
+  		if(col.gameObject.name == "Enemy"){
+  			this.Destroy(this.gameObject); //そして死ぬ
+  		}
+  	}
 }
